@@ -1,0 +1,22 @@
+server:
+  port: 21000
+
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/YupaiTS/config-repo
+    consul:
+      host: localhost
+      port: 8500
+    bus:
+      trace:
+        enabled: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest

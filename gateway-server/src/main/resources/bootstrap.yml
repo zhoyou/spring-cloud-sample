@@ -1,0 +1,11 @@
+server:
+  port: 20000
+
+spring:
+  application:
+    name: gateway-server
+  cloud:
+    config:
+      uri: http://localhost:21000
+      profile: default
+      label: master
