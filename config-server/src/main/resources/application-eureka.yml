@@ -1,6 +1,16 @@
 server:
   port: 21000
 
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:21100/eureka
+    healthcheck:
+      enabled: true
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+
 spring:
   application:
     name: config-server
@@ -9,9 +19,6 @@ spring:
       server:
         git:
           uri: https://github.com/YupaiTS/config-repo
-    consul:
-      host: localhost
-      port: 8500
     bus:
       trace:
         enabled: true

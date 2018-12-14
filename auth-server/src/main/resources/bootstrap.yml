@@ -1,0 +1,11 @@
+server:
+  port: 22000
+
+spring:
+  application:
+    name: auth-server
+  cloud:
+    config:
+      uri: http://localhost:21000
+      profile: default
+      label: master

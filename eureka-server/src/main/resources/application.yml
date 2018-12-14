@@ -12,3 +12,8 @@ eureka:
 spring:
   application:
     name: eureka-server
+
+logging:
+  level:
+    root: warn
+    com.yupaits: info
