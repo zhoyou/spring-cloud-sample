@@ -1,0 +1,1 @@
+java -jar zipkin-server-2.11.12-exec.jar --RABBIT_URI=amqp://guest:guest@localhost:5672/%2f --STORAGE_TYPE=elasticsearch --ES_HOSTS=http://localhost:9200 --ES_HTTP_LOGGING=BASIC

@@ -33,6 +33,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <spring-cloud.version>Finchley.SR2</spring-cloud.version>
+        <guava.version>25.0-jre</guava.version>
     </properties>
 
     <repositories>
@@ -55,12 +56,26 @@
         </pluginRepository>
     </pluginRepositories>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
+    </dependencies>
+
     <modules>
         <module>config-server</module>
         <module>eureka-server</module>
         <module>gateway-server</module>
         <module>admin-server</module>
         <module>auth-server</module>
+        <module>service-shop</module>
+        <module>service-order</module>
     </modules>
 
 </project>
