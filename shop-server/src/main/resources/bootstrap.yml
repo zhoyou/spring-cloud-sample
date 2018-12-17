@@ -1,0 +1,11 @@
+server:
+  port: 23100
+
+spring:
+  application:
+    name: shop-server
+  cloud:
+    config:
+      uri: http://localhost:21000
+      profile: default
+      label: master

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8"/>
+  <title>店铺主页</title>
+  <link rel="icon" href="https://blog.yupaits.com/avatar.jpg"/>
+  <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+  <style>
+    pre {
+      padding: 5px;
+      margin: 5px;
+    }
+    .string {
+      color: green;
+    }
+    .number {
+      color: darkorange;
+    }
+    .boolean {
+      color: blue;
+    }
+    .null {
+      color: magenta;
+    }
+    .key {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-1"></div>
+    <div class="col-10" style="margin-top: 1rem;">
+      <div class="card" id="shop-page">
+        <div class="card-body">
+          <h5 class="card-title">
+            店铺主页
+            <a class="btn btn-light float-right" href="/logout">注销登录</a>
+          </h5>
+          <form class="form-inline">
+            <div>查询订单：</div>
+            <div>
+              <input type="text" v-model="shopId" class="form-control" placeholder="店铺ID">
+              <input type="text" v-model="orderId" class="form-control" placeholder="订单ID">
+            </div>
+            <button type="button" class="btn btn-primary ml-3" @click="searchOrder">查询</button>
+          </form>
+          <pre v-html="syntaxHighlight(result)"></pre>
+        </div>
+      </div>
+    </div>
+    <div class="col-1"></div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script th:inline="javascript">
+  /*<![CDATA[*/
+  new Vue({
+    el: '#shop-page',
+    data: {
+      shopId: '',
+      orderId: '',
+      result: undefined
+    },
+    methods: {
+      searchOrder() {
+        let url = `/shop/order/search?shopId=${this.shopId}&orderId=${this.orderId}`;
+        axios.get(url, {
+          headers: {
+            Authorization: 'Bearer ' + [[${#authentication.details.tokenValue}]]
+          }
+        }).then(res => {
+          this.result = res.data;
+        }).catch(error => {
+          this.result = error.response;
+        });
+      },
+      syntaxHighlight(json) {
+        if (json === undefined) {
+          return '';
+        }
+        if (typeof json !== 'string') {
+          json = JSON.stringify(json, undefined, 2);
+        }
+        json = json.replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>');
+        return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match) {
+            var cls = 'number';
+            if (/^"/.test(match)) {
+                if (/:$/.test(match)) {
+                    cls = 'key';
+                } else {
+                    cls = 'string';
+                }
+            } else if (/true|false/.test(match)) {
+                cls = 'boolean';
+            } else if (/null/.test(match)) {
+                cls = 'null';
+            }
+            return '<span class="' + cls + '">' + match + '</span>';
+        });
+      }
+    }
+  });
+  /*]]>*/
+</script>
+</body>
+</html>

@@ -76,6 +76,8 @@
         <module>auth-server</module>
         <module>service-shop</module>
         <module>service-order</module>
+        <module>shop-client</module>
+        <module>shop-server</module>
     </modules>
 
 </project>

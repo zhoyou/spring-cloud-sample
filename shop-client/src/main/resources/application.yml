@@ -1,0 +1,44 @@
+server:
+  port: 24100
+  servlet:
+    session:
+      cookie:
+        name: shop.client.session
+
+security:
+  basic:
+    enabled: false
+  oauth2:
+    client:
+      client-id: app
+      client-secret: secret
+      access-token-uri: http://localhost:22000/oauth/token
+      user-authorization-uri: http://localhost:22000/oauth/authorize
+    resource:
+      user-info-uri: http://localhost:22000/user
+
+spring:
+  application:
+    name: shop-client
+  boot:
+    admin:
+      client:
+        url: http://localhost:21200
+        username: admin
+        password: 123456
+  thymeleaf:
+    cache: false
+
+logging:
+  level:
+    root: warn
+    com.yupaits: info
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
