@@ -1,13 +1,12 @@
 package com.yupaits.resource.shop.controller;
 
+import com.yupaits.resource.shop.service.OrderRemoteService;
+import com.yupaits.resource.shop.service.ShopRemoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
-
-import java.util.Map;
 
 /**
  * @author yupaits
@@ -16,22 +15,22 @@ import java.util.Map;
 @RestController
 public class ShopController {
 
-    private final RestTemplate restTemplate;
+    private final ShopRemoteService shopService;
+    private final OrderRemoteService orderService;
 
     @Autowired
-    public ShopController(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
+    public ShopController(ShopRemoteService shopService, OrderRemoteService orderService) {
+        this.shopService = shopService;
+        this.orderService = orderService;
     }
 
     @GetMapping("/{shopId}/order/{orderId}")
     public ResponseEntity getShopOrder(@PathVariable String shopId, @PathVariable String orderId) {
-        Map result = restTemplate.getForObject("http://service-shop/{shopId}/{orderId}", Map.class, shopId, orderId);
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(shopService.getShopOrder(shopId, orderId));
     }
 
     @GetMapping("/order/{orderId}")
     public ResponseEntity getOrder(@PathVariable String orderId) {
-        Map result = restTemplate.getForObject("http://service-order/{orderId}", Map.class, orderId);
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(orderService.getOrderById(orderId));
     }
 }
