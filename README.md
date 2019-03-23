@@ -1,6 +1,6 @@
 # spring-cloud-sample
 
-[![Build Status](https://travis-ci.com/YupaiTS/spring-cloud-sample.svg?branch=master)](https://travis-ci.com/YupaiTS/spring-cloud-sample)
+[![Build Status](https://travis-ci.com/yupaits/spring-cloud-sample.svg?branch=master)](https://travis-ci.com/yupaits/spring-cloud-sample)
 
 基于Finchley版本的Spring Cloud示例。
 
